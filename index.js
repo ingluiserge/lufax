@@ -2,8 +2,9 @@ import express, { response } from 'express';
 import cors from 'cors';
 import ClienteController from './src/controllers/ClienteController.js'
 import productoRouter from './src/routes/ProductoRoute.js';
+import movimientoRouter from './src/routes/MovimientoRoute.js';
 import FacturaController from './src/controllers/FacturaController.js';
-import MovimientoController from './src/controllers/MovimientoController.js';
+
 
 
 const app = express()
@@ -12,9 +13,7 @@ app.use(cors())
 
 app.use('/producto', productoRouter);
 
-app.get('/movimiento',MovimientoController.getMovimiento);
-
-app.post('/movimiento',MovimientoController.addMovimiento);
+app.use('/movimiento', movimientoRouter);
 
 app.get('/cliente', ClienteController.getCliente);
 
