@@ -4,7 +4,7 @@ const ClienteController = {}
 
 
 
-ClienteController.getCliente = async (req,res) => res.send(await ClienteService.getCliente());
+ClienteController.getCliente = async (req,res) => res.send(await ClienteService.getClientes());
 
 ClienteController.addCliente= async (req,res) => res.send(await ClienteService.addCliente(req.body));
 
