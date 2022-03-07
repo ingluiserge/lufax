@@ -21,8 +21,8 @@ FacturaService.addFactura = async (factura) => {
     var esValido = true;
        for (const x of items) {
         const producto = await ProductoService.getProductoById(x.id_producto);
-        const total = producto[0].stock - x.cantidad;
-        console.log('valores:', producto[0].stock, x.cantidad, total);
+        const total = producto.stock - x.cantidad;
+        
         if (total < 0) {
             esValido = false;
         }

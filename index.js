@@ -1,6 +1,6 @@
 import express, { response } from 'express';
 import cors from 'cors';
-import ClienteController from './src/controllers/ClienteController.js'
+import ClienteRouter from './src/routes/ClienteRoute.js'
 import productoRouter from './src/routes/ProductoRoute.js';
 import movimientoRouter from './src/routes/MovimientoRoute.js';
 import FacturaController from './src/controllers/FacturaController.js';
@@ -15,13 +15,8 @@ app.use('/producto', productoRouter);
 
 app.use('/movimiento', movimientoRouter);
 
-app.get('/cliente', ClienteController.getCliente);
+app.use('/cliente',ClienteRouter);
 
-app.post('/cliente', ClienteController.addCliente);
-
-app.put('/cliente/:id_cliente', ClienteController.updateCliente);
-
-app.delete('/cliente/:id_cliente', ClienteController.deleteCliente);
 
 app.post('/factura', FacturaController.addFactura);
 
