@@ -20,4 +20,6 @@ app.use('/cliente',ClienteRouter);
 
 app.post('/factura', FacturaController.addFactura);
 
+app.get('/factura/:id_factura',FacturaController.getFacturaTotales);
+
 app.listen(4020);

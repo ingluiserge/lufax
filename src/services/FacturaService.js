@@ -3,6 +3,16 @@ import DetalleFacturaService from '../services/DetalleFacturaService.js'
 import ProductoService from './ProductoService.js';
 
 const FacturaService = {}
+
+FacturaService.getFacturasTotal = async (id_factura) => {
+    var sql = 'select factura.id_factura ,factura.id_cliente,detalle_factura.cantidad,producto.nombre_producto from factura inner join detalle_factura on factura.id_factura = detalle_factura.id_factura inner join producto on detalle_factura.id_producto = producto.id_producto  where factura.id_factura =?';
+    const facturas = await query(sql, [id_factura]);
+    // ?? pregunta si es null y si es asi returna un objeto con stock = 0
+    return facturas;
+};
+
+
+
 // privado
 const processDetails = async (item, id_factura) => {
     await DetalleFacturaService.addDetalleFactura(item, id_factura);
@@ -11,7 +21,7 @@ const processDetails = async (item, id_factura) => {
     await ProductoService.updateProductoS(item.id_producto, newstock);
     return " todo ok";
 };
-const addMasterFactura = async(id_factura, id_cliente, fecha)=>{
+const addMasterFactura = async (id_factura, id_cliente, fecha) => {
     var sql = `INSERT INTO factura (id_factura, id_cliente,fecha) VALUES (?, ?, ?)`;
     const response = await query(sql, [id_factura, id_cliente, fecha]);
 };
@@ -19,7 +29,7 @@ const addMasterFactura = async(id_factura, id_cliente, fecha)=>{
 FacturaService.addFactura = async (factura) => {
     const { id_factura, id_cliente, fecha, items } = factura;
     var esValido = true;
-       for (const x of items) {
+    for (const x of items) {
         const producto = await ProductoService.getProductoById(x.id_producto);
         const total = producto.stock - x.cantidad;
         
