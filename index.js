@@ -25,4 +25,6 @@ app.delete('/cliente/:id_cliente', ClienteController.deleteCliente);
 
 app.post('/factura', FacturaController.addFactura);
 
+app.get('/factura/:id_factura',FacturaController.getFacturaTotales);
+
 app.listen(4020);
