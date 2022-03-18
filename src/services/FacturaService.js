@@ -5,10 +5,15 @@ import ProductoService from './ProductoService.js';
 const FacturaService = {}
 
 FacturaService.getFacturasTotal = async (id_factura) => {
-    var sql = 'select factura.id_factura ,factura.id_cliente,detalle_factura.cantidad,producto.nombre_producto from factura inner join detalle_factura on factura.id_factura = detalle_factura.id_factura inner join producto on detalle_factura.id_producto = producto.id_producto  where factura.id_factura =?';
-    const facturas = await query(sql, [id_factura]);
-    // ?? pregunta si es null y si es asi returna un objeto con stock = 0
-    return facturas;
+    var items = 'select detalle_factura.precio, factura.id_factura ,factura.id_cliente,detalle_factura.cantidad,producto.nombre_producto from factura inner join detalle_factura on factura.id_factura = detalle_factura.id_factura inner join producto on detalle_factura.id_producto = producto.id_producto  where factura.id_factura =?';
+    var sql = 'select DISTINCT(factura.id_factura),factura.id_cliente,factura.fecha from factura inner join detalle_factura on factura.id_factura = detalle_factura.id_factura inner join producto on detalle_factura.id_producto = producto.id_producto  where factura.id_factura =?';
+    const facturas = await query(items, [id_factura]);
+    const cabezal = await query(sql, [id_factura]);
+    
+    
+    
+
+    return { ...cabezal, facturas };
 };
 
 
@@ -17,7 +22,7 @@ FacturaService.getFacturasTotal = async (id_factura) => {
 const processDetails = async (item, id_factura) => {
     await DetalleFacturaService.addDetalleFactura(item, id_factura);
     const producto = await ProductoService.getProductoById(item.id_producto);
-    const newstock = producto[0].stock - item.cantidad;
+    const newstock = producto.stock - item.cantidad;
     await ProductoService.updateProductoS(item.id_producto, newstock);
     return " todo ok";
 };
