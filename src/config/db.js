@@ -3,8 +3,8 @@ import mysql from 'mysql'
 var pool  = mysql.createPool({
   connectionLimit : 10,
   host     : 'localhost',
-  user     : 'sa',
-  password : 'secret',
+  user     : 'root',
+  password : 'root',
   database : 'facturador'
 });
 // await 
