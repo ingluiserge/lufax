@@ -1,12 +1,15 @@
 import multer from 'multer';
 import express, { response } from 'express';
 import cors from 'cors';
+import UserController from './src/controllers/UserController.js';
 import ClienteRouter from './src/routes/ClienteRoute.js'
 import productoRouter from './src/routes/ProductoRoute.js';
 import movimientoRouter from './src/routes/MovimientoRoute.js';
 import FacturaController from './src/controllers/FacturaController.js';
 import ImagenController from './src/controllers/ImagenController.js';
 import bodyParser from 'body-parser'
+import ValidateCreateUser from './src/middewlare/ValidationUser.js';
+
 
 const app = express()
 
@@ -29,6 +32,8 @@ app.use(upload.any());
 
 app.post('/imagen',ImagenController.addImagen);
 
+
+app.post('/user',ValidateCreateUser,UserController.addUsers);
 
 app.use('/producto', productoRouter);
 
