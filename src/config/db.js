@@ -7,6 +7,7 @@ var pool  = mysql.createPool({
   password : 'root',
   database : 'facturador'
 });
+
 // await 
 function query(statement, params) {
     return new Promise(function (resolve, reject) {
@@ -15,6 +16,18 @@ function query(statement, params) {
                 reject(err);
             } else {
                 resolve(data);
+            }
+        })
+    });
+}
+
+function queryInsert(statement, params) {
+    return new Promise(function (resolve, reject) {
+        pool.query(statement, params, function (err, data) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data.insertId);
             }
         })
     });
