@@ -3,14 +3,14 @@ import ProductoController from "../controllers/ProductoController.js";
 
 const productoRouter = Router();
 
-productoRouter.get('/',ProductoController.getProducto);
+productoRouter.get('/', ProductoController.getProducto);
 
-productoRouter.get('/:id_producto',ProductoController.getProductoById);
+productoRouter.get('/:id_producto', ProductoController.getProductoById);
 
-productoRouter.post('/',ProductoController.addProducto);
+productoRouter.post('/', ProductoController.addProducto);
 
-productoRouter.put('/:id_producto',ProductoController.updateProducto);
+productoRouter.put('/:id_producto', ProductoController.updateProducto);
 
-productoRouter.delete('/:id_producto',ProductoController.deleteProducto);
+productoRouter.delete('/:id_producto', ProductoController.deleteProducto);
 
 export default productoRouter;

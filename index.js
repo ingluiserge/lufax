@@ -8,44 +8,35 @@ import movimientoRouter from './src/routes/MovimientoRoute.js';
 import FacturaController from './src/controllers/FacturaController.js';
 import ImagenController from './src/controllers/ImagenController.js';
 import bodyParser from 'body-parser'
-import ValidateCreateUser from './src/middewlare/ValidationUser.js';
+import jwt from 'jsonwebtoken';
+import userRouter from './src/routes/UserRoute.js';
+import AuthorizationMiddleware from './src/middewlare/AuthorizationMiddleware.js';
 
-
-const app = express()
+const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json())
 app.use(cors())
 
-/*app.use(function (req, res, next) {
-    console.log("time", Date.toString());
-    next();
-});*/
-
-
 const upload = multer({ dest: './src/upload' })
+
 app.use(upload.any());
 
-
-
-
-app.post('/imagen',ImagenController.addImagen);
-
-
-app.post('/user',ValidateCreateUser,UserController.addUsers);
-
-app.use('/producto', productoRouter);
-
-app.use('/movimiento', movimientoRouter);
-
-app.use('/cliente',ClienteRouter);
-
+app.post('/imagen', ImagenController.addImagen);
 
 app.post('/factura', FacturaController.addFactura);
 
-app.get('/factura/:id_factura',FacturaController.getFacturaTotales);
+app.get('/factura/:id_factura', FacturaController.getFacturaTotales);
 
+// routers
 
+app.use('/producto', AuthorizationMiddleware, productoRouter);
+
+app.use('/movimiento', movimientoRouter);
+
+app.use('/cliente', ClienteRouter);
+
+app.use('/user', userRouter);
 
 app.listen(4020);
