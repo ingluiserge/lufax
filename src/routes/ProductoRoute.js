@@ -1,9 +1,10 @@
 import { Router } from "express";
 import ProductoController from "../controllers/ProductoController.js";
+import cacheluf from "../middewlare/cachingMid.js";
 
 const productoRouter = Router();
 
-productoRouter.get('/', ProductoController.getProducto);
+productoRouter.get('/',cacheluf, ProductoController.getProducto);
 
 productoRouter.get('/:id_producto', ProductoController.getProductoById);
 

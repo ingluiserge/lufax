@@ -11,6 +11,7 @@ const ValidateCreateUser = [
         if (value) {
             throw new Error("correo ya existe");
         }
+        
     }),
     check('password').exists().not().isEmpty(),
     (req, res, next) => {

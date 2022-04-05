@@ -20,8 +20,8 @@ UserService.addUser = async (data, response) => {
     var sql = `INSERT INTO user (nombre_user, correo, password) VALUES (?, ?, ?)`;
     const resp = await query(sql, [nombre_user, correo, passwordcryp])
 
+   
     items.forEach(async item => {
-
         const x = await UserService.getFindUser();
         const id_user = x;
         await RoleUserService.addRoleUser(id_user, item)
@@ -43,13 +43,17 @@ UserService.login = async ({ email, pass }) => {
     
     const result = await query('select password from user where correo = ?', [email, passwordcryp]);
 
+    const roles = await query('SELECT id_role,nombre_role FROM user INNER JOIN role_user on user.id_user = role_user.id_user inner join rol on role_user.id_role = rol.id_rol where user.correo = ?',[email]);
+
+
+
     const userHash = result[0].password;
 
     const areEquals = await bcryptjs.compare(pass, userHash);
 
     if (areEquals) {
-        var token = jwt.sign({ correo: email }, 'mi-llave-secreta');
-        return { token };
+        var token = jwt.sign({ correo: email,rol:roles}, 'mi-llave-secreta',  { expiresIn: '1h' });
+        return { token};
     }
 
     return { message: "credentials invalid" };

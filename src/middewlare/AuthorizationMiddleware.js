@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 
 
-const AuthorizationMiddleware = (req, res, next) => {
+
+const AuthorizationMiddleware = (req, res, next)  => {
 
     const token = req.headers.authorization.split(' ')[1];
     let tokenValue = false;
