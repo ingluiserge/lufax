@@ -1,16 +1,16 @@
 import multer from 'multer';
 import express from 'express';
 import cors from 'cors';
-import ClienteRouter from './src/routes/ClienteRoute.js'
-import productoRouter from './src/routes/ProductoRoute.js';
-import movimientoRouter from './src/routes/MovimientoRoute.js';
-import FacturaController from './src/controllers/FacturaController.js';
-import ImagenController from './src/controllers/ImagenController.js';
+import ClienteRouter from './routes/ClienteRoute.js'
+import productoRouter from './routes/ProductoRoute.js';
+import movimientoRouter from './routes/MovimientoRoute.js';
+import FacturaController from './controllers/FacturaController.js';
+import ImagenController from './controllers/ImagenController.js';
 import bodyParser from 'body-parser'
-import userRouter from './src/routes/UserRoute.js';
-import AuthorizationMiddleware from './src/middewlare/AuthorizationMiddleware.js';
-import checkRoleAuth from './src/middewlare/checkRoleAuth.js';
-import  ADMIN  from './src/config/roles.js'
+import userRouter from './routes/UserRoute.js';
+import AuthorizationMiddleware from './middewlare/AuthorizationMiddleware.js';
+import checkRoleAuth from './middewlare/checkRoleAuth.js';
+import  ADMIN  from './config/roles.js'
 
 
 const app = express();
