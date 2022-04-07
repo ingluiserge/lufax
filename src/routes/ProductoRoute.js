@@ -4,7 +4,7 @@ import cacheluf from "../middewlare/cachingMid.js";
 
 const productoRouter = Router();
 
-productoRouter.get('/',cacheluf, ProductoController.getProducto);
+productoRouter.get('/',cacheluf,ProductoController.getProducto);
 
 productoRouter.get('/:id_producto', ProductoController.getProductoById);
 

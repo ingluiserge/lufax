@@ -13,4 +13,4 @@ const cacheoptions = {
 
   const cacheluf= ExpressExpeditious(cacheoptions);
   
-  export default cacheluf;
+  export default cacheluf
